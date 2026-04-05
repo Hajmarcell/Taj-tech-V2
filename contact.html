@@ -6,124 +6,111 @@
 <title>Get a Quote — Vitrine Taj</title>
 <link rel="stylesheet" href="css/styles.css">
 <style>
-/* Split layout: left editorial, right form */
-.contact-wrap {
+/* Full-page split: orange left, dark right */
+.contact-layout {
   min-height: 100vh;
   display: grid; grid-template-columns: 1fr 1fr;
   padding-top: var(--nav-h);
 }
 
-/* Left side: big atmospheric */
-.contact-left {
+/* LEFT — orange atmospheric */
+.cl-left {
+  background: var(--orange);
+  padding: 5rem 4rem 5rem 5rem;
+  display: flex; flex-direction: column; justify-content: space-between;
   position: sticky; top: var(--nav-h);
   height: calc(100vh - var(--nav-h));
   overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 4rem;
 }
-.contact-left__bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse at 40% 25%, rgba(126,184,201,0.2) 0%, transparent 50%),
-    radial-gradient(ellipse at 65% 75%, rgba(196,81,42,0.16) 0%, transparent 50%),
-    linear-gradient(160deg, #0a0e10 0%, #0a0907 100%);
+.cl-left__ghost {
+  position: absolute; font-family: var(--serif); font-size: 30vw; font-weight: 700;
+  color: rgba(0,0,0,.07); line-height: 1; bottom: -3rem; right: -3rem;
+  pointer-events: none; letter-spacing: -.05em;
 }
-.contact-left__shape{position:absolute;border:1px solid;animation:floatShape var(--d,8s) ease-in-out infinite;animation-delay:var(--dl,0s);}
-.contact-left__orbit{position:absolute;animation:orbit var(--d,12s) linear infinite;}
-.contact-left__gear{position:absolute;animation:spinSlow var(--d,22s) linear infinite;}
-.contact-left__grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,7,.95) 0%,rgba(10,9,7,.35) 50%,transparent 100%);}
-.contact-left__content{position:relative;z-index:2;}
-.contact-left__label{font-size:.48rem;letter-spacing:.4em;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:1.4rem;opacity:0;animation:riseIn .7s .3s forwards;}
-.contact-left__title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,4vw,5rem);font-weight:400;line-height:1.0;opacity:0;animation:riseIn .9s .5s forwards;}
-.contact-left__title em{font-style:italic;color:var(--gold);}
-.contact-left__details{margin-top:2.5rem;display:flex;flex-direction:column;gap:1rem;opacity:0;animation:riseIn .9s .8s forwards;}
-.cd-row{display:flex;gap:1.5rem;align-items:baseline;}
-.cd-label{font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);width:75px;flex-shrink:0;}
-.cd-val{font-size:.7rem;color:rgba(240,232,216,.75);}
+.cl-left__top { position: relative; z-index: 1; }
+.cl-left__label { font-size:.48rem;letter-spacing:.45em;text-transform:uppercase;color:rgba(240,232,216,.6);display:block;margin-bottom:1.5rem; }
+.cl-left h2 { font-family:var(--serif);font-size:clamp(3rem,5vw,7rem);font-weight:700;letter-spacing:-.04em;line-height:.85;color:var(--cream); }
+.cl-left h2 em { font-style:italic;font-weight:400;color:rgba(240,232,216,.6); }
 
-/* Right side: form */
-.contact-right {
-  background: var(--dusk);
-  padding: 6rem 5rem;
+.cl-left__details { position:relative;z-index:1;display:flex;flex-direction:column;gap:1.2rem; }
+.cd-row { display:flex;gap:1.5rem;align-items:baseline; }
+.cd-label { font-size:.45rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,232,216,.6);width:80px;flex-shrink:0; }
+.cd-val { font-size:.72rem;color:rgba(240,232,216,.9); }
+
+.cl-left__why { position:relative;z-index:1; }
+.cl-left__why-title { font-size:.45rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(240,232,216,.55);margin-bottom:1.2rem;display:block; }
+.cl-left__why-list { display:flex;flex-direction:column;gap:0; }
+.why-row { display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid rgba(0,0,0,.08); }
+.why-row::before { content:'';width:.35rem;height:.35rem;background:rgba(240,232,216,.7);border-radius:50%;flex-shrink:0;margin-top:.45rem; }
+.why-row span { font-size:.68rem;line-height:1.7;color:rgba(240,232,216,.8); }
+.why-row span strong { color:var(--cream);font-weight:400; }
+
+/* RIGHT — form on dark */
+.cl-right {
+  background: var(--ink-deep);
+  padding: 5rem;
   border-left: 1px solid rgba(240,232,216,.05);
 }
-.contact-right h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem,2.5vw,3rem); font-weight: 400;
-  margin-bottom: 3rem;
-}
-.contact-right h2 em { font-style: italic; color: var(--gold); }
+.cl-right h3 { font-family:var(--serif);font-size:clamp(2rem,3vw,4rem);font-weight:400;line-height:1.0;margin-bottom:3rem; }
+.cl-right h3 em { font-style:italic;color:var(--orange); }
 
-/* Why work with us */
-.why-list { margin-bottom: 3rem; display: flex; flex-direction: column; gap: 0; }
-.why-item { display:flex;gap:1rem;align-items:flex-start;padding:1rem 0;border-bottom:1px solid rgba(240,232,216,.05); }
-.why-item::before{content:'';width:.35rem;height:.35rem;background:var(--blue);border-radius:50%;flex-shrink:0;margin-top:.5rem;}
-.why-item span{font-size:.68rem;line-height:1.8;color:var(--muted-lt);}
-.why-item span strong{color:var(--cream);font-weight:400;}
-
-/* Divider */
-.form-divider{border:none;border-top:1px solid rgba(240,232,216,.07);margin:3rem 0;}
-
-/* Form */
-.form-row{margin-bottom:1.5rem;}
-.form-row label{display:block;font-size:.48rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;}
+.form-row { margin-bottom:1.5rem; }
+.form-row label { display:block;font-size:.45rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem; }
 .form-row input,
 .form-row select,
 .form-row textarea {
-  width:100%;padding:.9rem 1.1rem;
-  background:rgba(240,232,216,0.04);
-  border:1px solid rgba(240,232,216,0.08);
-  border-bottom-color:rgba(126,184,201,0.25);
-  color:var(--cream);
-  font-family:'Jost',sans-serif;font-size:.75rem;font-weight:300;
+  width:100%;padding:.95rem 1.2rem;
+  background:rgba(240,232,216,0.03);
+  border:1px solid rgba(240,232,216,0.07);
+  border-bottom-color:rgba(196,81,42,0.35);
+  color:var(--cream);font-family:var(--sans);font-size:.75rem;font-weight:300;
   outline:none;transition:border-color .3s,background .3s;cursor:none;appearance:none;
 }
 .form-row input:focus,
 .form-row select:focus,
-.form-row textarea:focus{border-color:var(--gold);background:rgba(201,149,58,0.04);}
+.form-row textarea:focus { border-color:var(--orange);background:rgba(196,81,42,.04); }
 .form-row input::placeholder,
-.form-row textarea::placeholder{color:rgba(240,232,216,0.2);}
-.form-row select option{background:var(--dusk);}
-.form-row textarea{resize:vertical;min-height:130px;}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-row textarea::placeholder { color:rgba(240,232,216,.18); }
+.form-row select option { background:var(--ink-deep); }
+.form-row textarea { resize:vertical;min-height:130px; }
+.form-grid { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
 
-.checkbox-group{display:flex;flex-direction:column;gap:.7rem;margin-top:.5rem;}
-.checkbox-label{display:flex;align-items:center;gap:.8rem;font-size:.68rem;color:var(--muted-lt);cursor:none;transition:color .25s;}
-.checkbox-label input[type="checkbox"]{width:14px;height:14px;accent-color:var(--orange);cursor:none;}
-.checkbox-label:hover{color:var(--cream);}
+.cb-group { display:flex;flex-direction:column;gap:.7rem;margin-top:.5rem; }
+.cb-label { display:flex;align-items:center;gap:.8rem;font-size:.68rem;color:var(--muted-lt);cursor:none;transition:color .25s; }
+.cb-label input[type="checkbox"] { width:14px;height:14px;accent-color:var(--orange);cursor:none; }
+.cb-label:hover { color:var(--cream); }
 
-.form-submit{
+.form-submit {
   width:100%;padding:1.2rem;
   background:var(--orange);border:none;
-  color:var(--cream);font-family:'Jost',sans-serif;
-  font-size:.55rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--cream);font-family:var(--sans);
+  font-size:.52rem;letter-spacing:.32em;text-transform:uppercase;
   cursor:none;position:relative;overflow:hidden;margin-top:.5rem;
 }
-.form-submit::after{content:'';position:absolute;inset:0;background:var(--blue-deep);transform:translateX(-101%);transition:transform .35s cubic-bezier(0.16,1,0.3,1);}
-.form-submit:hover::after{transform:translateX(0);}
-.form-submit span{position:relative;z-index:1;}
+.form-submit::after { content:'';position:absolute;inset:0;background:var(--blue-deep);transform:translateX(-101%);transition:transform .4s var(--ease); }
+.form-submit:hover::after { transform:translateX(0); }
+.form-submit span { position:relative;z-index:1; }
 
-/* Success */
-.success-msg{display:none;text-align:center;padding:4rem 2rem;}
-.success-msg h3{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:400;margin-bottom:1rem;}
-.success-msg h3 em{color:var(--gold);font-style:italic;}
-.success-msg p{font-size:.75rem;line-height:2;color:var(--muted-lt);}
+.success-wrap { display:none;text-align:center;padding:6rem 2rem; }
+.success-wrap h3 { font-family:var(--serif);font-size:clamp(2.5rem,4vw,5rem);font-weight:700;letter-spacing:-.03em;line-height:.9; }
+.success-wrap h3 em { font-style:italic;font-weight:400;color:var(--orange); }
+.success-wrap p { font-size:.78rem;line-height:2;color:var(--muted-lt);margin-top:1.5rem; }
 
 @media(max-width:1024px){
-  .contact-wrap{grid-template-columns:1fr;}
-  .contact-left{position:relative;height:70vw;min-height:400px;}
-  .contact-right{padding:4rem 2.5rem;}
+  .contact-layout { grid-template-columns:1fr; }
+  .cl-left { position:relative;top:0;height:auto;min-height:60vw;padding:4rem 2.5rem; }
+  .cl-right { padding:4rem 2.5rem; }
 }
 @media(max-width:640px){
-  .form-grid{grid-template-columns:1fr;}
-  .contact-right{padding:3rem 1.5rem;}
+  .form-grid { grid-template-columns:1fr; }
+  .cl-right { padding:3rem 1.5rem; }
 }
 </style>
 </head>
 <body>
 <div class="cur"></div>
 
-<nav class="nav nav--filled">
+<nav class="nav nav--orange">
   <a class="nav__logo" href="index.html">Vitrine <em>Taj</em></a>
   <div class="nav__links">
     <a class="nav__link" href="about.html">Our Story</a>
@@ -131,62 +118,46 @@
     <a class="nav__link" href="process.html">Process</a>
     <a class="nav__link" href="contact.html">Contact</a>
   </div>
-  <a class="nav__cta" href="contact.html">Start a Project</a>
+  <a class="nav__cta btn" href="contact.html">Start a Project</a>
   <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="nav__drawer">
-  <a href="index.html">Home</a>
-  <a href="about.html">Our Story</a>
-  <a href="services.html">What We Create</a>
-  <a href="process.html">Process</a>
+  <a href="index.html">Home</a><a href="about.html">Our Story</a>
+  <a href="services.html">What We Create</a><a href="process.html">Process</a>
   <a href="contact.html">Start a Project</a>
 </div>
 
-<div class="contact-wrap">
+<div class="contact-layout">
 
-  <!-- LEFT -->
-  <div class="contact-left">
-    <div class="contact-left__bg">
-      <div class="contact-left__shape" style="width:150px;height:150px;top:10%;left:5%;border-color:rgba(126,184,201,0.25);--d:10s;--r:8deg;"></div>
-      <div class="contact-left__shape" style="width:80px;height:80px;border-radius:50%;top:55%;left:65%;border-color:rgba(201,149,58,0.3);--d:7s;--dl:-3s;"></div>
-      <div class="contact-left__shape" style="width:50px;height:50px;top:75%;left:20%;border-color:rgba(196,81,42,0.4);--d:9s;--dl:-5s;--r:45deg;"></div>
-      <div class="contact-left__gear" style="width:140px;height:140px;top:20%;left:55%;--d:28s;">
-        <div style="position:absolute;inset:15%;border-radius:50%;border:1.5px solid rgba(196,81,42,0.25);"></div>
-        <div style="position:absolute;top:50%;left:50%;width:100%;height:1.5px;background:rgba(196,81,42,0.25);transform-origin:left center;margin-top:-.75px;"></div>
-        <div style="position:absolute;top:50%;left:50%;width:100%;height:1.5px;background:rgba(196,81,42,0.25);transform-origin:left center;margin-top:-.75px;transform:rotate(60deg)"></div>
-        <div style="position:absolute;top:50%;left:50%;width:100%;height:1.5px;background:rgba(196,81,42,0.25);transform-origin:left center;margin-top:-.75px;transform:rotate(120deg)"></div>
-      </div>
-      <div class="contact-left__orbit" style="width:120px;height:120px;top:calc(35% - 60px);left:calc(35% - 60px);--d:14s;">
-        <div style="position:absolute;top:0;left:50%;width:5px;height:5px;background:var(--blue);border-radius:50%;margin-left:-2.5px;box-shadow:0 0 8px var(--blue);"></div>
+  <!-- ORANGE LEFT -->
+  <div class="cl-left">
+    <div class="cl-left__ghost">V</div>
+
+    <div class="cl-left__top">
+      <span class="cl-left__label">Get In Touch</span>
+      <h2>Let's make<br>your window<br><em>unforgettable.</em></h2>
+    </div>
+
+    <div class="cl-left__why">
+      <span class="cl-left__why-title">Why Vitrine Taj</span>
+      <div class="cl-left__why-list">
+        <div class="why-row"><span><strong>Nothing off the shelf</strong> — every display designed from scratch.</span></div>
+        <div class="why-row"><span><strong>You approve everything</strong> before we build a single piece.</span></div>
+        <div class="why-row"><span><strong>We install it ourselves</strong> — no crates, no DIY assembly.</span></div>
+        <div class="why-row"><span><strong>Ongoing support</strong> after opening night.</span></div>
       </div>
     </div>
-    <div class="contact-left__grad"></div>
-    <div class="contact-left__content">
-      <span class="contact-left__label">Get In Touch</span>
-      <h1 class="contact-left__title">
-        Let's make your<br>window <em>unforgettable.</em>
-      </h1>
-      <div class="contact-left__details">
-        <div class="cd-row"><span class="cd-label">Email</span><span class="cd-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3aba6afafac83b5aab7b1aaada6b7a2a9eda0acae">[email&#160;protected]</a></span></div>
-        <div class="cd-row"><span class="cd-label">Instagram</span><span class="cd-val">@vitrinetaj</span></div>
-        <div class="cd-row"><span class="cd-label">Response</span><span class="cd-val">Within 24 hours</span></div>
-        <div class="cd-row"><span class="cd-label">Always</span><span class="cd-val">100% custom, from scratch</span></div>
-      </div>
+
+    <div class="cl-left__details">
+      <div class="cd-row"><span class="cd-label">Email</span><span class="cd-val">hello@vitrinetaj.com</span></div>
+      <div class="cd-row"><span class="cd-label">Instagram</span><span class="cd-val">@vitrinetaj</span></div>
+      <div class="cd-row"><span class="cd-label">Response</span><span class="cd-val">Within 24 hours</span></div>
     </div>
   </div>
 
-  <!-- RIGHT: FORM -->
-  <div class="contact-right">
-    <h2>Request<br>a <em>Quote.</em></h2>
-
-    <div class="why-list">
-      <div class="why-item"><span><strong>Nothing off the shelf</strong> — every display designed from scratch for your shop.</span></div>
-      <div class="why-item"><span><strong>You approve everything</strong> before we build a single component.</span></div>
-      <div class="why-item"><span><strong>We install it ourselves</strong> — no crates, no DIY.</span></div>
-      <div class="why-item"><span><strong>Ongoing support</strong> after opening night.</span></div>
-    </div>
-
-    <hr class="form-divider">
+  <!-- DARK RIGHT: FORM -->
+  <div class="cl-right">
+    <h3>Request<br>a <em>Quote.</em></h3>
 
     <div id="formWrap">
       <div class="form-grid">
@@ -213,12 +184,12 @@
       </div>
       <div class="form-row">
         <label>What interests you?</label>
-        <div class="checkbox-group">
-          <label class="checkbox-label"><input type="checkbox"> Kinetic / motion display</label>
-          <label class="checkbox-label"><input type="checkbox"> 3D printed sculpture</label>
-          <label class="checkbox-label"><input type="checkbox"> Hand-painted artwork</label>
-          <label class="checkbox-label"><input type="checkbox"> Seasonal / themed display</label>
-          <label class="checkbox-label"><input type="checkbox"> Not sure yet — open to ideas</label>
+        <div class="cb-group">
+          <label class="cb-label"><input type="checkbox"> Kinetic / motion display</label>
+          <label class="cb-label"><input type="checkbox"> 3D printed sculpture</label>
+          <label class="cb-label"><input type="checkbox"> Hand-painted artwork</label>
+          <label class="cb-label"><input type="checkbox"> Seasonal / themed display</label>
+          <label class="cb-label"><input type="checkbox"> Not sure yet — open to ideas</label>
         </div>
       </div>
       <div class="form-row">
@@ -228,24 +199,29 @@
       <button class="form-submit" id="submitBtn"><span>Send My Request →</span></button>
     </div>
 
-    <div class="success-msg" id="successMsg">
-      <h3>Request <em>received.</em></h3>
-      <p>Thank you — we'll be in touch within 24 hours to start the conversation.<br>In the meantime, follow us at <strong>@vitrinetaj</strong>.</p>
+    <div class="success-wrap" id="successMsg">
+      <h3>Request<br><em>received.</em></h3>
+      <p>Thank you — we'll be in touch within 24 hours.<br>Follow us at <strong>@vitrinetaj</strong> in the meantime.</p>
     </div>
   </div>
 
-</div><!-- /contact-wrap -->
+</div>
 
 <footer class="footer">
   <div class="footer__logo">Vitrine <em>Taj</em></div>
   <div class="footer__links">
-    <a href="about.html">Our Story</a>
-    <a href="services.html">Services</a>
-    <a href="process.html">Process</a>
-    <a href="contact.html">Contact</a>
+    <a href="about.html">Our Story</a><a href="services.html">Services</a>
+    <a href="process.html">Process</a><a href="contact.html">Contact</a>
   </div>
   <div class="footer__copy">© 2026 Taj LLC</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="js/main.js"></script>
-<scrip
+<script src="js/main.js"></script>
+<script>
+document.getElementById('submitBtn').addEventListener('click', () => {
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+});
+</script>
+</body>
+</html>
